@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = ( env, options ) => {
 	return {
 		entry: [
-			'./src/index.ts',
+			path.resolve(__dirname, './src/index.tsx'),
 			'webpack-dev-server/client?http://localhost:3000'
 		],
 		output: {
@@ -20,7 +20,7 @@ module.exports = ( env, options ) => {
 		module: {
 			rules: [
 				{
-					test: /\.ts$/,
+					test: /\.ts(x?)$/,
 					use: {
 						loader: 'ts-loader',
 					},
@@ -56,6 +56,9 @@ module.exports = ( env, options ) => {
 		},
 		plugins: [new HtmlWebpackPlugin({
 			template: 'index.html'
-		})]
+		})],
+		resolve: {
+			extensions: ['.tsx', '.ts', '.js'],
+		}
 	}
 };
