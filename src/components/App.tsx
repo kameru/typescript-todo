@@ -1,9 +1,10 @@
 import * as React from 'react';
+import TodoInput from './TodoInput';
 
 const App = (props:{name: string}) => {
     return (
         <div>
-            Hello {props.name}!
+            <TodoInput />
         </div>
     )
 }
