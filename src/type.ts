@@ -1,4 +1,4 @@
 interface TodoItem {
     title: string,
-    isComplete: boolean
+    isCompleted: boolean
 }
