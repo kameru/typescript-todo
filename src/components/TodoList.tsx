@@ -18,7 +18,7 @@ const TodoList:React.FC = () => {
         <div>
             {
                 todoList.length > 0 && todoList.map((item: TodoItem, index: number) => {
-                    return (<TodoItemComponent {...item} onCheck={(e) => {onCheck(e, index)}}/>)
+                    return (<TodoItemComponent {...item} onCheck={(e) => {onCheck(e, index)}} key={index}/>)
                 })
             }
         </div>
