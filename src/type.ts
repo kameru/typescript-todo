@@ -1,4 +1,4 @@
-interface TodoItem {
+export interface TodoItem {
     title: string,
     isCompleted: boolean
 }
