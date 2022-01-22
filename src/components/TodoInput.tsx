@@ -6,11 +6,11 @@ import * as localStore from '../utils/localStore'
 const TodoInput: React.FC = () => {
     const [title, setTitle] = React.useState<string>('');
 
-    const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setTitle(e.target.value)
     };
 
-    const onSave = () => {
+    const onSave = (): void => {
         console.log('onSave')
         const newItem: TodoItem = {
             title,
