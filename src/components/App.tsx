@@ -1,10 +1,12 @@
 import * as React from 'react';
 import TodoInput from './TodoInput';
+import TodoList from './TodoList';
 
-const App = (props:{name: string}) => {
+const App:React.FC = () => {
     return (
         <div>
             <TodoInput />
+            <TodoList />
         </div>
     )
 }

@@ -17,6 +17,7 @@ const TodoInput: React.FC = () => {
             isCompleted: false
         }
         localStore.setTodoItem(newItem)
+        location.reload();
     };
 
     return (
