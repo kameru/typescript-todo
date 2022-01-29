@@ -1,17 +1,18 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/todoRedux';
 import { TodoItem } from '../type';
-import { getTodoList, setTodoList as setLocalTodoList } from '../utils/localStore';
+import { getTodoList, setTodoList } from '../utils/localStore';
 import TodoItemComponent from './TodoItem';
 
 const TodoList:React.FC = () => {
     const list = getTodoList();
-    const [todoList, setTodoList] = React.useState<TodoItem[]>(list || []);
+    const todoList = useSelector((state: RootState) => (state.todoList));
     
     const onCheck = (e:React.ChangeEvent<HTMLInputElement>, index: number):void => {
         const newList = [...todoList];
         newList[index].isCompleted = e.target.checked;
         setTodoList(newList);
-        setLocalTodoList(newList);
     }
 
     return (

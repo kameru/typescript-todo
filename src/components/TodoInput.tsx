@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { AddTodo } from '../store/todoRedux';
 import { TodoItem } from '../type';
 import * as localStore from '../utils/localStore'
 
 
 const TodoInput: React.FC = () => {
     const [title, setTitle] = React.useState<string>('');
+    const dispatch = useDispatch();
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setTitle(e.target.value)
@@ -16,8 +19,8 @@ const TodoInput: React.FC = () => {
             title,
             isCompleted: false
         }
-        localStore.setTodoItem(newItem)
-        location.reload();
+        localStore.setTodoItem(newItem);
+        dispatch(AddTodo(newItem));
     };
 
     return (
@@ -27,4 +30,4 @@ const TodoInput: React.FC = () => {
         </div>
     )
 }
-export default TodoInput
+export default connect()(TodoInput);
