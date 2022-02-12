@@ -1,14 +1,14 @@
 import { TodoItem } from "../type"
-import { getTodoList } from "../utils/localStore"
+import { getTodoList, setTodoList } from "../utils/localStore"
 
 // Action
 export const ADD_TODO = 'addTodo';
 export const TOGGLE_COMPLETE = 'toggleComplete'
 
-export const AddTodo = (todo: TodoItem) => {
+export const AddTodo = (title: string) => {
     return {
         type: 'addTodo',
-        payload: todo
+        payload: {title}
     }
 }
 export const ToggleComplete = (index:number, value:boolean) => {
@@ -27,8 +27,15 @@ const initialState = {
 }
 export function todoReducer(state=initialState, action) {
     if (action.type === ADD_TODO) {
+        const newItem = {
+            id: state.todoList.length,
+            title: action.payload.title,
+            isCompleted: false
+        }
+        const todoList = [...state.todoList, newItem];
+        setTodoList(todoList)
         return {
-            todoList: [...state.todoList, action.payload]
+            todoList
         }
     }
     if (action.type === TOGGLE_COMPLETE) {

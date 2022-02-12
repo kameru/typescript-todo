@@ -15,12 +15,7 @@ const TodoInput: React.FC = () => {
 
     const onSave = (): void => {
         console.log('onSave')
-        const newItem: TodoItem = {
-            title,
-            isCompleted: false
-        }
-        localStore.setTodoItem(newItem);
-        dispatch(AddTodo(newItem));
+        dispatch(AddTodo(title));
     };
 
     return (
