@@ -7,9 +7,9 @@ interface TodoItemProps extends TodoItem {
 
 const TodoItemComponent:React.FC<TodoItemProps> = (props:TodoItemProps) => {
     return (
-        <div>
+        <div >
             <input type='checkbox' checked={props.isCompleted} onChange={props.onCheck}/>
-            <span>{props.title}</span>
+            <span style={props.isCompleted ? {color: '#777', textDecoration: 'line-through'} : undefined}>{props.title}</span>
         </div>
     )
 }
