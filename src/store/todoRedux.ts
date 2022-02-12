@@ -3,15 +3,25 @@ import { getTodoList, setTodoList } from "../utils/localStore"
 
 // Action
 export const ADD_TODO = 'addTodo';
+export const MODIFY_TODO = 'modifyTodo'
 export const TOGGLE_COMPLETE = 'toggleComplete'
 
 export const AddTodo = (title: string) => {
     return {
         type: 'addTodo',
-        payload: {title}
+        payload: { title }
     }
 }
-export const ToggleComplete = (index:number, value:boolean) => {
+export const ModifyTodo = (id: number, title: string) => {
+    return {
+        type: MODIFY_TODO,
+        payload: {
+            id,
+            title,
+        }
+    }
+}
+export const ToggleComplete = (index: number, value: boolean) => {
     return {
         type: 'toggleComplete',
         payload: {
@@ -25,7 +35,7 @@ export const ToggleComplete = (index:number, value:boolean) => {
 const initialState = {
     todoList: getTodoList()
 }
-export function todoReducer(state=initialState, action) {
+export function todoReducer(state = initialState, action) {
     if (action.type === ADD_TODO) {
         const newItem = {
             id: state.todoList.length,
@@ -38,8 +48,18 @@ export function todoReducer(state=initialState, action) {
             todoList
         }
     }
+    if (action.type === MODIFY_TODO) {
+        const { id, title } = action.payload;
+        const todoList = [...state.todoList];
+        const index = todoList.findIndex(todo => todo.id === id);
+        todoList[index].title = title;
+        setTodoList(todoList)
+        return {
+            todoList
+        }
+    }
     if (action.type === TOGGLE_COMPLETE) {
-        const {index, value} = action.payload;
+        const { index, value } = action.payload;
         const todoList = [...state.todoList];
         todoList[index].isCompleted = value;
         return {
