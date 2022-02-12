@@ -3,3 +3,5 @@ export interface TodoItem {
     title: string,
     isCompleted: boolean
 }
+
+export type TodoListItem = TodoItem | null;

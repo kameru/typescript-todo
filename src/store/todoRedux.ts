@@ -1,8 +1,10 @@
+import TodoList from "../components/TodoList";
 import { TodoItem } from "../type"
 import { getTodoList, setTodoList } from "../utils/localStore"
 
 // Action
 export const ADD_TODO = 'addTodo';
+export const DELETE_TODO = 'deleteTodo';
 export const TOGGLE_COMPLETE = 'toggleComplete'
 
 export const AddTodo = (title: string) => {
@@ -11,6 +13,14 @@ export const AddTodo = (title: string) => {
         payload: {title}
     }
 }
+
+export const DeleteTodo = (id: number) => {
+    return {
+        type: 'deleteTodo',
+        payload: { id }
+    }
+}
+
 export const ToggleComplete = (id:number, value:boolean) => {
     return {
         type: 'toggleComplete',
@@ -36,6 +46,16 @@ export function todoReducer(state=initialState, action) {
         setTodoList(todoList)
         return {
             todoList
+        }
+    }
+    if (action.type === DELETE_TODO) {
+        const todoList = [...state.todoList];
+        let index = todoList.findIndex((item) =>(item?.id === action.payload.id));
+        todoList[index] = null;
+
+        setTodoList(todoList);
+        return {
+            todoList: todoList
         }
     }
     if (action.type === TOGGLE_COMPLETE) {
