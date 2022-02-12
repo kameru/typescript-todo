@@ -11,11 +11,11 @@ export const AddTodo = (title: string) => {
         payload: {title}
     }
 }
-export const ToggleComplete = (index:number, value:boolean) => {
+export const ToggleComplete = (id:number, value:boolean) => {
     return {
         type: 'toggleComplete',
         payload: {
-            index,
+            id,
             value
         }
     }
@@ -39,9 +39,12 @@ export function todoReducer(state=initialState, action) {
         }
     }
     if (action.type === TOGGLE_COMPLETE) {
-        const {index, value} = action.payload;
+        const {id, value} = action.payload;
         const todoList = [...state.todoList];
-        todoList[index].isCompleted = value;
+        const item = todoList.find((item) => item.id === id)
+        item.isCompleted = value;
+
+        setTodoList(todoList);
         return {
             todoList
         }
