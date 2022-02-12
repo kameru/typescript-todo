@@ -30,4 +30,4 @@ const TodoInput: React.FC = () => {
         </div>
     )
 }
-export default connect()(TodoInput);
+export default TodoInput;
