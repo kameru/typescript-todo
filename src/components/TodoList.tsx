@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, ToggleComplete } from '../store/todoRedux';
 import { TodoItem } from '../type';
-import { setTodoList } from '../utils/localStore';
 import TodoItemComponent from './TodoItem';
 
 const TodoList:React.FC = () => {
@@ -10,7 +9,6 @@ const TodoList:React.FC = () => {
     const dispatch = useDispatch();
     
     const onCheck = (e:React.ChangeEvent<HTMLInputElement>, id: number):void => {
-        const newList = [...todoList];
         const isCompleted = e.target.checked;
         dispatch(ToggleComplete(id, isCompleted));
     }
