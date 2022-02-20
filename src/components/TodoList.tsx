@@ -8,7 +8,7 @@ const TodoList: React.FC = () => {
     const todoList = useSelector((state: RootState) => (state.todoList));
     const dispatch = useDispatch();
 
-    const onCheck = (e: React.ChangeEvent<HTMLInputElement>, id: number): void => {
+    const onCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, id: number): void => {
         const isCompleted = e.target.checked;
         dispatch(ToggleComplete(id, isCompleted));
     }
@@ -28,7 +28,7 @@ const TodoList: React.FC = () => {
                     return (
                         <TodoItemComponent
                             {...item}
-                            onCheck={(e) => { onCheck(e, item.id) }}
+                            onCompleteChange={(e) => { onCompleteChange(e, item.id) }}
                             onModify={onModify}
                             onDelete={(e) => { onDelete(item.id) }}
                             key={item.id}

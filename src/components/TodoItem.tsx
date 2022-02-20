@@ -5,7 +5,7 @@ interface TodoItemProps extends TodoItem {
     id: number
     title: string
     isCompleted: boolean
-    onCheck: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onCompleteChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onModify?: (item: TodoItem) => void
     onDelete?: (e:React.MouseEvent<HTMLButtonElement>) => void
 }
@@ -14,7 +14,7 @@ const TodoItemComponent: React.FC<TodoItemProps> = ({
     id,
     title,
     isCompleted,
-    onCheck,
+    onCompleteChange,
     onDelete,
     onModify
 }) => {
@@ -40,7 +40,7 @@ const TodoItemComponent: React.FC<TodoItemProps> = ({
     }
     return (
         <div>
-            <input type='checkbox' checked={isCompleted} onChange={onCheck} />
+            <input type='checkbox' checked={isCompleted} onChange={onCompleteChange} />
             {
                 isModifyMode ? (
                     <input type='text' value={temperalTitle} onChange={handleChangeTitle} />
