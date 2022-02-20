@@ -63,7 +63,10 @@ const TodoItemComponent: React.FC<TodoItemProps> = ({
                     <button type='button' onClick={handleStartModifying}>수정</button>
                 )
             }
-            <button onClick={onDelete}>삭제</button>
+            {
+                !!onDelete && 
+                    <button onClick={onDelete}>삭제</button>
+            }
         </div>
     )
 }
