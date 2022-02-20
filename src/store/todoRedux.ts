@@ -1,17 +1,27 @@
+import TodoList from "../components/TodoList";
 import { TodoItem } from "../type"
 import { getTodoList, setTodoList } from "../utils/localStore"
 
 // Action
 export const ADD_TODO = 'addTodo';
+export const DELETE_TODO = 'deleteTodo';
 export const MODIFY_TODO = 'modifyTodo'
 export const TOGGLE_COMPLETE = 'toggleComplete'
 
 export const AddTodo = (title: string) => {
     return {
-        type: 'addTodo',
+        type: ADD_TODO,
         payload: { title }
     }
 }
+
+export const DeleteTodo = (id: number) => {
+    return {
+        type: ADD_TODO,
+        payload: { id }
+    }
+}
+
 export const ModifyTodo = (id: number, title: string) => {
     return {
         type: MODIFY_TODO,
@@ -21,9 +31,10 @@ export const ModifyTodo = (id: number, title: string) => {
         }
     }
 }
+
 export const ToggleComplete = (id: number, value: boolean) => {
     return {
-        type: 'toggleComplete',
+        type: TOGGLE_COMPLETE,
         payload: {
             id,
             value
@@ -48,10 +59,21 @@ export function todoReducer(state = initialState, action) {
             todoList
         }
     }
+    if (action.type === DELETE_TODO) {
+        const todoList = [...state.todoList];
+        let index = todoList.findIndex((item) =>(item?.id === action.payload.id));
+        todoList[index] = null;
+
+        setTodoList(todoList);
+        return {
+            todoList
+        }
+    }
+
     if (action.type === MODIFY_TODO) {
         const { id, title } = action.payload;
         const todoList = [...state.todoList];
-        const index = todoList.findIndex(todo => todo.id === id);
+        const index = todoList.findIndex(todo => todo?.id === id);
         todoList[index].title = title;
         setTodoList(todoList)
         return {
@@ -61,7 +83,7 @@ export function todoReducer(state = initialState, action) {
     if (action.type === TOGGLE_COMPLETE) {
         const { id, value } = action.payload;
         const todoList = [...state.todoList];
-        const item = todoList.find((item) => item.id === id)
+        const item = todoList.find((item) => item?.id === id)
         item.isCompleted = value;
 
         setTodoList(todoList);

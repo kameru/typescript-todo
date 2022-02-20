@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ModifyTodo, RootState, ToggleComplete } from '../store/todoRedux';
+import { DeleteTodo, ModifyTodo, RootState, ToggleComplete } from '../store/todoRedux';
 import { TodoItem } from '../type';
 import TodoItemComponent from './TodoItem';
 
@@ -8,11 +8,15 @@ const TodoList: React.FC = () => {
     const todoList = useSelector((state: RootState) => (state.todoList));
     const dispatch = useDispatch();
 
-    const onCheck = (e: React.ChangeEvent<HTMLInputElement>, id: number): void => {
+    const onCompleteChange = (e: React.ChangeEvent<HTMLInputElement>, id: number): void => {
         const isCompleted = e.target.checked;
         dispatch(ToggleComplete(id, isCompleted));
     }
 
+    const onDelete = (id: number) => {
+        dispatch(DeleteTodo(id))
+    }
+    
     const onModify = (item: TodoItem): void => {
         dispatch(ModifyTodo(item.id, item.title));
     }
@@ -24,8 +28,9 @@ const TodoList: React.FC = () => {
                     return (
                         <TodoItemComponent
                             {...item}
-                            onCheck={(e) => { onCheck(e, item.id) }}
+                            onCompleteChange={(e) => { onCompleteChange(e, item.id) }}
                             onModify={onModify}
+                            onDelete={(e) => { onDelete(item.id) }}
                             key={item.id}
                         />
                     )

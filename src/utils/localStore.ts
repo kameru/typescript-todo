@@ -1,4 +1,4 @@
-import { TodoItem } from "../type"
+import { TodoItem, TodoListItem } from "../type"
 
 const KEY = 'TODO_LIST_KEY'
 
@@ -8,12 +8,12 @@ export const setTodoItem = (item: TodoItem): void => {
     localStorage.setItem(KEY, JSON.stringify(list))
 }
 
-export const setTodoList = (list: TodoItem[]): void => {
+export const setTodoList = (list: TodoListItem[]): void => {
     localStorage.setItem(KEY, JSON.stringify(list))
 }
 
-export const getTodoList = (): TodoItem[] => {
+export const getTodoList = (): TodoListItem[] => {
     const jsonString = localStorage.getItem(KEY)
-    const list: TodoItem[] = jsonString ? JSON.parse(jsonString) as TodoItem[] : []
+    const list: TodoListItem[] = jsonString ? JSON.parse(jsonString) as TodoListItem[] : []
     return list
 }
